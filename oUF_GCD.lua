@@ -38,7 +38,7 @@ Enjoy!
 local referenceSpells = {
 	45462,			-- Death Knight
 	1978,			-- Hunter
-	21562,			-- Priest
+	589,			-- Priest
 	105361,			-- Paladin
 	686,			-- Warlock
 	44614,			-- Mage
