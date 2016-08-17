@@ -39,14 +39,14 @@ local referenceSpells = {
 	45462,			-- Death Knight
 	1978,			-- Hunter
 	589,			-- Priest
-	105361,			-- Paladin
+	85256,			-- Paladin
 	686,			-- Warlock
 	44614,			-- Mage
 	140817,			-- Warrior
 	403,			-- Shaman
 	1752,			-- Rogue
 	5176,			-- Druid
-	100780,         -- Monk
+	100780,         	-- Monk
 }
 local spellid
 local GetTime = GetTime
