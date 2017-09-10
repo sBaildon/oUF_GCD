@@ -35,54 +35,53 @@ spells to the list -- it doesnt matter where.
 Enjoy!
 --]]
 
-local referenceSpells = {
-	45462,			-- Death Knight
-	1978,			-- Hunter
-	589,			-- Priest
-	85256,			-- Paladin
-	686,			-- Warlock
-	30449,			-- Mage
-	140817,			-- Warrior
-	403,			-- Shaman
-	1752,			-- Rogue
-	5176,			-- Druid
-	100780,         	-- Monk
-	162243,			-- Demon Hunter
-}
-local spellid
+local referenceSpells = {}
+referenceSpells["DEATHKNIGHT"] = 49020
+referenceSpells["DEMONHUNTER"] = 162243
+referenceSpells["DRUID"] = 5176
+referenceSpells["HUNTER"] = 193455
+referenceSpells["MAGE"] = 30449
+referenceSpells["MONK"] = 100780
+referenceSpells["PALADIN"] = 85256
+referenceSpells["PRIEST"] = 589
+referenceSpells["ROGUE"] = 1752
+referenceSpells["SHAMAN"] = 403
+referenceSpells["WARLOCK"] = 686
+referenceSpells["WARRIOR"] = 140817
+
+local spellId
+local hasInitialized = false
 local GetTime = GetTime
 local BOOKTYPE_SPELL = BOOKTYPE_SPELL
 local GetSpellCooldown = GetSpellCooldown
 
 local Init = function()
-	local FindInSpellbook = function(spell)
-		for tab = 1, 4 do
+	local FindInSpellbook = function(spellId)
+		for tab = 1, GetNumSpellTabs() do
 			local _, _, offset, numSpells = GetSpellTabInfo(tab)
-			for i = (1+offset), (offset + numSpells) do
-				local bspell = GetSpellInfo(i, BOOKTYPE_SPELL)
-				if (bspell == spell) then
-					return i
+			for i = (offset + 1), (offset + numSpells) do
+				local _, _, _, _, _, _, _spellId = GetSpellInfo(i, BOOKTYPE_SPELL)
+				if not (_spellId == nil) and (spellId == _spellId) then
+					return true
 				end
 			end
 		end
-		return nil
+		return false
 	end
 
-	for _, lspell in pairs(referenceSpells) do
-		local na = GetSpellInfo (lspell)
-		local x = FindInSpellbook(na)
-		if x ~= nil then
-			spellid = lspell
-			break
-		end
+	local _, englishClass = UnitClass("player")
+	local _, _, _, _, _, _, _spellId = GetSpellInfo(referenceSpells[englishClass])
+
+	local found = false
+	if FindInSpellbook(_spellId) then
+		spellId = _spellId
+		found = true
+	else
+		print("oUF_GCD could not find spellId", _spellId, "for class", englishClass)
 	end
 
-	if spellid == nil then
-		-- XXX: print some error ..
-		print ("Cant find spellid, oUF_GCD")
-	end
-
-	return spellid
+	hasInitialized = true
+	return found
 end
 
 
@@ -111,13 +110,13 @@ end
 
 local Update = function(self, event, unit)
 	if self.GCD then
-		if spellid == nil then
-			if Init() == nil then
+		if spellId == nil then
+			if hasInitialized or not Init() then
 				return
 			end
 		end
 
-		local start, dur = GetSpellCooldown(spellid)
+		local start, dur = GetSpellCooldown(spellId)
 
 		if (not start) then return end
 		if (not dur) then dur = 0 end
