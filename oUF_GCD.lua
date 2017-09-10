@@ -47,7 +47,7 @@ referenceSpells["PRIEST"] = 589
 referenceSpells["ROGUE"] = 1752
 referenceSpells["SHAMAN"] = 403
 referenceSpells["WARLOCK"] = 686
-referenceSpells["WARRIOR"] = 140817
+referenceSpells["WARRIOR"] = 5308
 
 local spellId
 local hasInitialized = false
