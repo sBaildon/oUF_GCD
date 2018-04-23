@@ -36,7 +36,7 @@ Enjoy!
 --]]
 
 local referenceSpells = {}
-referenceSpells["DEATHKNIGHT"] = 49020
+referenceSpells["DEATHKNIGHT"] = 49998
 referenceSpells["DEMONHUNTER"] = 162243
 referenceSpells["DRUID"] = 5176
 referenceSpells["HUNTER"] = 193455
