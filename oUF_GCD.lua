@@ -45,7 +45,7 @@ referenceSpells["MONK"] = 100780
 referenceSpells["PALADIN"] = 85256
 referenceSpells["PRIEST"] = 589
 referenceSpells["ROGUE"] = 53
-referenceSpells["SHAMAN"] = 403
+referenceSpells["SHAMAN"] = 192106
 referenceSpells["WARLOCK"] = 686
 referenceSpells["WARRIOR"] = 5308
 
